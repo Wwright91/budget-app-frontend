@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, Link, useNavigate } from "react-router-dom";
+
 const API = process.env.REACT_APP_API_URL;
 
 function EntryEditForm() {
@@ -55,45 +56,76 @@ function EntryEditForm() {
   return (
     <div className="Edit">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="date">Date:</label>
-        <input
-          id="date"
-          value={entry.date}
-          type="text"
-          onChange={handleTextChange}
-          required
-        />
-        <label htmlFor="name">Name:</label>
-        <input
-          id="name"
-          type="text"
-          required
-          value={entry.name}
-          onChange={handleTextChange}
-        />
-        <label htmlFor="amount">Amount:</label>
-        <input
-          id="amount"
-          type="number"
-          onChange={handleTextChange}
-          value={entry.amount}
-        />
-        <label htmlFor="from">From:</label>
-        <input
-          id="from"
-          name="from"
-          type="text"
-          value={entry.from}
-          onChange={handleTextChange}
-        />
-        <label htmlFor="category">Category:</label>
-        <input
+        <div className="form-group">
+          <label htmlFor="date">Date:</label>
+          <input
+            id="date"
+            value={entry.date}
+            type="date"
+            onChange={handleTextChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="name">Name:</label>
+          <input
+            id="name"
+            type="text"
+            required
+            value={entry.name}
+            onChange={handleTextChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="amount">Amount:</label>
+          <input
+            id="amount"
+            type="number"
+            onChange={handleTextChange}
+            value={entry.amount}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="from">From:</label>
+          <input
+            id="from"
+            name="from"
+            type="text"
+            value={entry.from}
+            onChange={handleTextChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="category">Category:</label>
+          {/* <input
           id="category"
           type="text"
           name="category"
           value={entry.category}
           onChange={handleTextChange}
-        />
+        /> */}
+
+          <select
+            id="category"
+            value={entry.category}
+            onChange={(e) => setEntry({ ...entry, category: e.target.value })}
+          >
+            <option value=""></option>
+            <option value="paycheck">Pay Check</option>
+            <option value="phonebill">Phone Bill</option>
+            <option value="lightbill">Light Bill</option>
+            <option value="loan">Loan</option>
+            <option value="carpayment">Car Payment</option>
+            <option value="insurance">Insurance</option>
+            <option value="grocery">Grocery</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
         <br />
 
         <input type="submit" />

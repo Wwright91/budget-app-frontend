@@ -12,8 +12,8 @@ const TransactionDetails = () => {
   useEffect(() => {
     axios
       .get(`${API}/entries/${index}`)
-        .then((response) => {
-          console.log(`${API}`, response.data)
+      .then((response) => {
+        //   console.log(response.data)
         setEntry(response.data);
       })
       .catch(() => {
@@ -21,7 +21,6 @@ const TransactionDetails = () => {
       });
   }, [index, navigate]);
 
-  
   const handleDelete = () => {
     axios
       .delete(`${API}/entries/${index}`)
@@ -31,41 +30,44 @@ const TransactionDetails = () => {
       .catch((e) => console.error(e));
   };
 
-  
   return (
-    <article>
-      <h3>
-        {entry.date}
-      </h3>
-      <h5>
-        <span>
-        {entry.name}
-        </span>{" "}
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        {entry.amount}
-      </h5>
-      <p>{entry.from}</p>
-      <h6>{entry.category}</h6>
-      <div className="showNavigation">
-        <div>
-          {" "}
-          <Link to={`/entries`}>
-            <button>Back</button>
-          </Link>
-        </div>
-        <div>
-          {" "}
-          <Link to={`/entries/${index}/edit`}>
-            <button>Edit</button>
-          </Link>
-        </div>
-        <div>
-          {" "}
-          <button onClick={handleDelete}>Delete</button>
+    <div className="card">
+      <div className="card-header bg-info mb-3">
+        <h4>{entry.name}</h4>
+      </div>
+
+      <div className="card-body text-center">
+        <h5>
+          Date:{" "}
+          {new Date(entry.date).toDateString().split(" ").splice(1).join(" ")}
+        </h5>
+
+        <p> Amount: $ {Number(entry.amount).toLocaleString()}</p>
+        <p>From: {entry.from}</p>
+        <p>Category: {entry.category}</p>
+        <div className="d-flex">
+          <div>
+            {" "}
+            <Link to={`/entries`}>
+              <button className="btn btn-dark">Back</button>
+            </Link>
+          </div>
+          <div>
+            {" "}
+            <Link to={`/entries/${index}/edit`}>
+              <button className="btn btn-warning">Edit</button>
+            </Link>
+          </div>
+          <div>
+            {" "}
+            <button className="btn btn-danger" onClick={handleDelete}>
+              Delete
+            </button>
+          </div>
         </div>
       </div>
-    </article>
+    </div>
   );
-}
+};
 
 export default TransactionDetails;
