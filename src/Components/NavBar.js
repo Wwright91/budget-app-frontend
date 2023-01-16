@@ -1,28 +1,29 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
+// import { useState, useEffect } from "react";
+// import axios from "axios";
 import { Badge, Button } from "react-bootstrap";
+import hero from "../../src/budget-icon.png"
 
-const API = process.env.REACT_APP_API_URL;
+// const API = process.env.REACT_APP_API_URL;
 
-export default function NavBar() {
-  const [entries, setEntries] = useState([]);
-  const [total, setTotal] = useState([]);
+export default function NavBar({total}) {
+  // const [entries, setEntries] = useState([]);
+  // const [total, setTotal] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get(`${API}/entries`)
-      .then((response) => {
-        setEntries(response.data);
-        // console.log(response.data);
-        setTotal(
-          response.data
-            .map(({ amount }) => Number(amount))
-            .reduce((a, b) => a + b, 0)
-        );
-      })
-      .catch((e) => console.error("catch", e));
-  }, [entries]);
+  // useEffect(() => {
+  //   axios
+  //     .get(`${API}/entries`)
+  //     .then((response) => {
+  //       setEntries(response.data);
+  //       // console.log(response.data);
+  //       setTotal(
+  //         response.data
+  //           .map(({ amount }) => Number(amount))
+  //           .reduce((a, b) => a + b, 0)
+  //       );
+  //     })
+  //     .catch((e) => console.error("catch", e));
+  // }, [total]);
 
   let navigate = useNavigate();
 
@@ -36,27 +37,32 @@ export default function NavBar() {
         {" "}
         <img
           onClick={goHome}
-          src="https://is4-ssl.mzstatic.com/image/thumb/Purple113/v4/cd/69/77/cd69778f-f58f-9787-8fa2-c193703a217c/AppIconPro-0-0-1x_U007emarketing-0-0-0-7-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/1200x630wa.png"
+          src={hero}
           alt="hero"
           height="100"
           width="200"
         />
-        <h1 className="justify-content-center">
+        <h1 className="p-4">
           <Link to="/entries" className="all-entries text-info">
             Budget App
           </Link>
         </h1>
-        <li className="nav-item">
+        <li className="nav-item pt-4">
           <Link to="/entries/new" className="create-new">
-            <Button variant="light">New Transaction</Button>
+            <Button variant="light">+</Button>
           </Link>
         </li>
         <Button
           variant={total < 0 ? "danger" : total > 1000 ? "success" : "warning"}
+          style={{ cursor: "default" }}
         >
-          Expected Amount:{" "}
+          {total < 0 ? "Debt:" : "Left:"}{" "}
           <Badge bg="dark">
-            <h5>$ {total.toLocaleString()}</h5>
+            <h5>
+              {total < 0.99 && total > -1
+                ? total.toLocaleString() + "¢"
+                : "$" + total.toLocaleString()}
+            </h5>
           </Badge>
         </Button>
       </nav>

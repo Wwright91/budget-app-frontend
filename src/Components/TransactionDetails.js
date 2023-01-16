@@ -1,11 +1,17 @@
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import ConfirmDelete from "./DeleteConfirmation";
 
 const API = process.env.REACT_APP_API_URL;
 
 const TransactionDetails = () => {
   const [entry, setEntry] = useState([]);
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   let { index } = useParams();
   let navigate = useNavigate();
 
@@ -13,22 +19,12 @@ const TransactionDetails = () => {
     axios
       .get(`${API}/entries/${index}`)
       .then((response) => {
-        //   console.log(response.data)
         setEntry(response.data);
       })
       .catch(() => {
         navigate("/not-found");
       });
   }, [index, navigate]);
-
-  const handleDelete = () => {
-    axios
-      .delete(`${API}/entries/${index}`)
-      .then(() => {
-        navigate(`/entries`);
-      })
-      .catch((e) => console.error(e));
-  };
 
   return (
     <div className="card">
@@ -39,13 +35,15 @@ const TransactionDetails = () => {
       <div className="card-body text-center">
         <h5>
           Date:{" "}
-          {new Date(entry.date).toDateString().split(" ").splice(1).join(" ")}
+          {new Date(entry.date).toDateString().split(" ").slice(1, 2) +
+            " " +
+            new Date(entry.date).toDateString().split(" ").slice(2).join(", ")}
         </h5>
 
         <p> Amount: $ {Number(entry.amount).toLocaleString()}</p>
         <p>From: {entry.from}</p>
         <p>Category: {entry.category}</p>
-        <div className="d-flex">
+        <div className="d-flex show-buttons">
           <div>
             {" "}
             <Link to={`/entries`}>
@@ -59,10 +57,13 @@ const TransactionDetails = () => {
             </Link>
           </div>
           <div>
-            {" "}
-            <button className="btn btn-danger" onClick={handleDelete}>
-              Delete
-            </button>
+            <ConfirmDelete
+              index={index}
+              navigate={navigate}
+              show={show}
+              handleClose={handleClose}
+              handleShow={handleShow}
+            />
           </div>
         </div>
       </div>

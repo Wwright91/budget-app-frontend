@@ -35,6 +35,7 @@ function EntryEditForm() {
       .then((response) => {
         setEntry(response.data);
         navigate(`/entries/${index}`);
+        window.location.reload();
       })
       .catch((c) => console.warn("catch", c));
   };
@@ -42,15 +43,6 @@ function EntryEditForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     updateEntry();
-  };
-
-  const handleDelete = () => {
-    axios
-      .delete(`${API}/entries/${index}`)
-      .then(() => {
-        navigate(`/entries`);
-      })
-      .catch((e) => console.error(e));
   };
 
   return (
@@ -66,10 +58,11 @@ function EntryEditForm() {
             required
           />
         </div>
-
+        <br />
         <div className="form-group">
-          <label htmlFor="name">Name:</label>
+          <label htmlFor="name">Item Name:</label>
           <input
+            className="form-control"
             id="name"
             type="text"
             required
@@ -77,20 +70,20 @@ function EntryEditForm() {
             onChange={handleTextChange}
           />
         </div>
-
         <div className="form-group">
           <label htmlFor="amount">Amount:</label>
           <input
+            className="form-control"
             id="amount"
             type="number"
             onChange={handleTextChange}
             value={entry.amount}
           />
         </div>
-
         <div className="form-group">
           <label htmlFor="from">From:</label>
           <input
+            className="form-control"
             id="from"
             name="from"
             type="text"
@@ -98,42 +91,33 @@ function EntryEditForm() {
             onChange={handleTextChange}
           />
         </div>
-
         <div className="form-group">
           <label htmlFor="category">Category:</label>
-          {/* <input
-          id="category"
-          type="text"
-          name="category"
-          value={entry.category}
-          onChange={handleTextChange}
-        /> */}
-
           <select
             id="category"
-            value={entry.category}
+            className="form-control"
             onChange={(e) => setEntry({ ...entry, category: e.target.value })}
+            value={entry.category}
           >
             <option value=""></option>
-            <option value="paycheck">Pay Check</option>
-            <option value="phonebill">Phone Bill</option>
-            <option value="lightbill">Light Bill</option>
-            <option value="loan">Loan</option>
-            <option value="carpayment">Car Payment</option>
-            <option value="insurance">Insurance</option>
-            <option value="grocery">Grocery</option>
-            <option value="other">Other</option>
+            <option value="Pay Check">Pay Check</option>
+            <option value="Phone Bill">Phone Bill</option>
+            <option value="Light Bill">Light Bill</option>
+            <option value="Loan">Loan</option>
+            <option value="Car Payment">Car Payment</option>
+            <option value="Insurance">Insurance</option>
+            <option value="Grocery">Grocery</option>
+            <option value="Other">Other</option>
           </select>
         </div>
-
         <br />
-
-        <input type="submit" />
+        <div className="d-flex show-buttons">
+          <button className="btn btn-success">Submit</button>
+          <Link to={`/entries/${index}`}>
+            <button className="btn btn-warning">Back</button>
+          </Link>
+        </div>
       </form>
-      <Link to={`/entries/${index}`}>
-        <button>Nevermind!</button>
-      </Link>
-      <button onClick={handleDelete}>Delete</button>
     </div>
   );
 }

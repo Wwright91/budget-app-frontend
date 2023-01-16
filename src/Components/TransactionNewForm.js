@@ -14,7 +14,7 @@ function TransactionNewForm() {
     category: "",
   });
 
-  const [otherOption, setOtherOption] = useState("");
+  // const [otherOption, setOtherOption] = useState("");
 
   const navigate = useNavigate();
 
@@ -22,12 +22,12 @@ function TransactionNewForm() {
     setEntry({ ...entry, [event.target.id]: event.target.value });
   };
 
-  const handleOtherOption = (e) => {
-    setOtherOption(e.target.value);
-    if (otherOption) {
-      setEntry({ ...entry, category: e.target.value });
-    }
-  };
+  // const handleOtherOption = (e) => {
+  //   setOtherOption(e.target.value);
+  //   if (otherOption) {
+  //     setEntry({ ...entry, category: e.target.value });
+  //   }
+  // };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -35,14 +35,20 @@ function TransactionNewForm() {
       .post(`${API}/entries`, entry)
       .then(() => {
         navigate(`/entries`);
+        window.location.reload()
       })
       .catch((c) => console.error("catch", c));
   };
 
+
+  const previousPage = (e) => {
+    e.preventDefault();
+    window.history.back();
+  };
   return (
-    <div className="New">
+    <div className="New p-4">
       <form onSubmit={handleSubmit}>
-        <div class="form-group">
+        <div className="form-group">
           <label htmlFor="date">Date:</label>
           <input
             id="date"
@@ -52,9 +58,10 @@ function TransactionNewForm() {
             required
           />
         </div>
+        <br/>
 
-        <div class="form-group">
-          <label htmlFor="name">Name:</label>
+        <div className="form-group">
+          <label htmlFor="name">Item Name:</label>
           <input
             className="form-control"
             id="name"
@@ -65,7 +72,7 @@ function TransactionNewForm() {
           />
         </div>
 
-        <div class="form-group">
+        <div className="form-group">
           <label htmlFor="amount">Amount:</label>
           <input
             className="form-control"
@@ -76,7 +83,7 @@ function TransactionNewForm() {
           />
         </div>
 
-        <div class="form-group">
+        <div className="form-group">
           <label htmlFor="from">From:</label>
           <input
             className="form-control"
@@ -88,7 +95,7 @@ function TransactionNewForm() {
           />
         </div>
 
-        <div class="form-group">
+        <div className="form-group">
           <label htmlFor="category">Category:</label>
           {/* <input
           id="category"
@@ -100,7 +107,7 @@ function TransactionNewForm() {
           <select
             className="form-control"
             id="category"
-            onChange={(e) => setEntry({ ...entry, category: e.target.value })}
+            onChange={(e) => setEntry({ ...entry, category: (e.target.options[e.target.selectedIndex].text) })}
           >
             <option value=""></option>
             <option value="paycheck">Pay Check</option>
@@ -112,17 +119,21 @@ function TransactionNewForm() {
             <option value="grocery">Grocery</option>
             <option value="other">Other</option>
           </select>
-          {entry.category === "other" ? (
-            <input
-              onChange={handleOtherOption}
-              type="text"
-              value={otherOption}
-            />
-          ) : null}
         </div>
 
         <br />
-        <input type="submit" />
+        <div className="new-buttons">
+              <button
+        type="button"
+        className="btn  btn-outline-warning"
+        onClick={previousPage}
+      >
+        Back
+                  </button>
+                  {" "}
+                  <br/>
+                  <button className="btn btn-outline-success">Submit</button>
+                  </div>
       </form>
     </div>
   );

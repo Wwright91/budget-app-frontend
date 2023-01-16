@@ -1,23 +1,11 @@
 import Transaction from "./Transaction";
-import axios from "axios";
-import { useState, useEffect } from "react";
+// import axios from "axios";
+// import { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
 
-const API = process.env.REACT_APP_API_URL;
+// const API = process.env.REACT_APP_API_URL;
 
-function Entries() {
-  const [entries, setEntries] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get(`${API}/entries`)
-      .then((response) => {
-        setEntries(response.data);
-        // console.log(response.data);
-      })
-      .catch((e) => console.error("catch", e));
-  }, []);
-
+function Entries({entries, setEntries}) {
   const sortByDate = () => {
     setEntries([
       ...entries
@@ -28,9 +16,6 @@ function Entries() {
 
   return (
     <div>
-      <label> Search</label>
-      <input />
-      <br />
       <br />
       <Table striped bordered hover variant="dark">
         <thead>

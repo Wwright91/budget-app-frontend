@@ -1,10 +1,10 @@
 import Transactions from "../Components/Transactions";
 
-function Index() {
+function Index({entries, setEntries}) {
   return (
-    <div className="Index">
-      <h3>Transactions</h3>
-      <Transactions />
+    <div>
+      <h3 className="p-2">Transactions</h3>
+      <Transactions entries={entries} setEntries={ setEntries} />
     </div>
   );
 }

@@ -1,4 +1,10 @@
-.create-new, .all-entries, a {
+* {
+  font-family: "Poppins", sans-serif;
+}
+
+.create-new,
+.all-entries,
+a {
   text-decoration: none;
 }
 
@@ -6,76 +12,58 @@ img {
   cursor: pointer;
 }
 
-
-/* nav {
-  background: #d1a4fa;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1em;
-  box-shadow: 2px 2px 4px grey;
-  margin-bottom: 1em;
+.click-here:hover {
+  background-color: rgb(191, 186, 186);
+  border-radius: 10px;
+  display: inline-flex;
 }
 
-main {
-  width: 90%;
-  margin: auto;
+.hide:hover {
+  background-color: rgb(191, 186, 186);
+  border-radius: 10px;
+  display: inline-flex;
 }
 
-a {
-  text-decoration: none;
-  color: #4442a5;
+.create-new:hover button {
+  display: none;
 }
 
-h4 {
-  display: flex;
-  justify-content: space-between;
-  margin: 0;
+.create-new:hover:before {
+  content: "New Transaction";
+  font-size: xx-large;
+  color: aliceblue;
 }
 
-table {
-  width: 50%;
-  margin: auto;
-}
-
-td {
+.create-new:hover {
   text-align: center;
+  padding: 13px;
+  border-radius: 5px;
+  background-color: rgb(27, 155, 194);
 }
 
-tbody td:not(td:first-of-type):hover {
-  transform: scale(1.05);
-  opacity: 0.9;
+.show-buttons {
+  flex-direction: row-reverse;
+  padding-right: 550px;
+  column-gap: 20px;
 }
 
-tbody tr:nth-child(even) {
-  background: #f4eafd;
-}
-
-
-
-.New form {
-  margin: auto;
-  width: 95%;
-}
-
-input[type],
-textarea {
-  display: block;
-  width: 90%;
-  margin: auto;
-}
-
-input[type="checkbox"] {
-  margin: 0;
-  width: 15%;
-}
-
-input[type="submit"] {
-  width: 30%;
-}
-
-.showNavigation {
+.new-buttons {
   display: flex;
-  justify-content: space-around;
-  width: 50%;
+  flex-direction: row;
+  column-gap: 10px;
+}
+
+.hide {
+  cursor: pointer;
+  position: relative;
+  bottom: 500px;
+  left: 140px;
+  /* bottom: 910px;
+  left: 340px; */
+}
+
+/* .doughnutchart {
+  height: 600px;
+  display: flex;
+  justify-content: center;
 } */
