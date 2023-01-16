@@ -16,7 +16,7 @@ function Entries() {
         // console.log(response.data);
       })
       .catch((e) => console.error("catch", e));
-  }, [entries]);
+  }, []);
 
   const sortByDate = () => {
     setEntries([
