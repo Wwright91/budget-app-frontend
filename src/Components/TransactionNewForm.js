@@ -35,11 +35,10 @@ function TransactionNewForm() {
       .post(`${API}/entries`, entry)
       .then(() => {
         navigate(`/entries`);
-        window.location.reload()
+        window.location.reload();
       })
       .catch((c) => console.error("catch", c));
   };
-
 
   const previousPage = (e) => {
     e.preventDefault();
@@ -58,7 +57,7 @@ function TransactionNewForm() {
             required
           />
         </div>
-        <br/>
+        <br />
 
         <div className="form-group">
           <label htmlFor="name">Item Name:</label>
@@ -97,17 +96,15 @@ function TransactionNewForm() {
 
         <div className="form-group">
           <label htmlFor="category">Category:</label>
-          {/* <input
-          id="category"
-          type="text"
-          name="category"
-          value={entry.category}
-          onChange={handleTextChange}
-              /> */}
           <select
             className="form-control"
             id="category"
-            onChange={(e) => setEntry({ ...entry, category: (e.target.options[e.target.selectedIndex].text) })}
+            onChange={(e) =>
+              setEntry({
+                ...entry,
+                category: e.target.options[e.target.selectedIndex].text,
+              })
+            }
           >
             <option value=""></option>
             <option value="paycheck">Pay Check</option>
@@ -123,17 +120,16 @@ function TransactionNewForm() {
 
         <br />
         <div className="new-buttons">
-              <button
-        type="button"
-        className="btn  btn-outline-warning"
-        onClick={previousPage}
-      >
-        Back
-                  </button>
-                  {" "}
-                  <br/>
-                  <button className="btn btn-outline-success">Submit</button>
-                  </div>
+          <button
+            type="button"
+            className="btn  btn-outline-warning"
+            onClick={previousPage}
+          >
+            Back
+          </button>{" "}
+          <br />
+          <button className="btn btn-outline-success">Submit</button>
+        </div>
       </form>
     </div>
   );

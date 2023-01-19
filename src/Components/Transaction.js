@@ -1,9 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
-// import axios from "axios";
 import ConfirmDelete from "./DeleteConfirmation";
 import { useState } from "react";
-
-// const API = process.env.REACT_APP_API_URL;
 
 function Entry({ entry, index }) {
 
@@ -13,15 +10,6 @@ function Entry({ entry, index }) {
   const handleShow = () => setShow(true);
 
   let navigate = useNavigate();
-
-  // const handleDelete = () => {
-  //   axios
-  //     .delete(`${API}/entries/${index}`)
-  //     .then(() => {
-  //       navigate(`/entries`);
-  //     })
-  //     .catch((e) => console.error(e));
-  // };
 
   return (
     <>

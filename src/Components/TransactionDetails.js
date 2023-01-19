@@ -35,6 +35,7 @@ const TransactionDetails = () => {
       <div className="card-body text-center">
         <h5>
           Date:{" "}
+          {/* {new Date(Date.UTC(entry.date)).toDateString()} */}
           {new Date(entry.date).toDateString().split(" ").slice(1, 2) +
             " " +
             new Date(entry.date).toDateString().split(" ").slice(2).join(", ")}

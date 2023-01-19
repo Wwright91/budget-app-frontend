@@ -16,6 +16,12 @@ function EntryEditForm() {
     category: "",
   });
 
+  console.log(entry.date)
+  
+  let splitDate = (entry.date).split("-")
+// const dateFormat = splitDate
+console.log(new Date(Date.UTC(`${splitDate[0]}-${splitDate[1]}-${splitDate[2]}`)))
+
   useEffect(() => {
     axios
       .get(`${API}/entries/${index}`)
